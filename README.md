@@ -52,8 +52,9 @@ getRule():object//获取当前工具类的生成规则
         },
     }
 ```
-可通工具类的setRule方法设置
-###### 其中@代表当前级别，*代表任意，可通过修改**TAG_SELECT_root**和**TAG_SELECT_all**常量进行自定义
+###### 可通工具类的setRule方法设置
+其中@代表当前级别，*代表任意，可通过修改**TAG_SELECT_root**和**TAG_SELECT_all**常量进行自定义
+# 
 
 ## demo
 ``` typescript
