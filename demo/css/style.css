@@ -1,0 +1,218 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 1vh;
+  min-height: 8px;
+  max-height: 20px;
+  background-color: #eee;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(2, 101, 167, 0.2);
+}
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 1px;
+  background-color: rgba(2, 101, 167, 0.2);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #eee;
+  font-size: 12px;
+}
+
+#show {
+  border: solid 1px #0265a7;
+  transform: scale(0.7);
+  width: 100%;
+  flex: 1;
+  transform-origin: 100% 100px;
+  background-color: #fff;
+}
+
+#path,
+.module,
+.attr {
+  position: fixed;
+  color: #fff;
+  background-color: rgba(2, 101, 167, 0.5);
+  overflow: auto;
+}
+#path h4,
+.module h4,
+.attr h4 {
+  padding: 10px;
+}
+
+#path {
+  top: 0%;
+  right: 0;
+  width: 70%;
+  height: 30px;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: stretch;
+  overflow-y: visible;
+  overflow-x: auto;
+}
+
+.module {
+  left: 0;
+  top: 0;
+  width: 30%;
+  height: 100%;
+}
+
+.attr {
+  right: 0;
+  top: calc(70% + 30px);
+  width: 70%;
+  bottom: 0;
+}
+
+@keyframes leftShow {
+  0% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes rightShow {
+  0% {
+    transform: translateX(100%);
+  }
+}
+@keyframes topShow {
+  0% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes scaleShow {
+  0% {
+    transform: scale(1);
+  }
+}
+@media screen and (min-width: 1200px) {
+  body {
+    font-size: 16px;
+  }
+
+  #showTouch {
+    position: absolute;
+    top: 10%;
+    right: 25%;
+    left: 25%;
+    height: 50%;
+  }
+
+  #show {
+    transform: scale(0.5);
+    transform-origin: center 20%;
+    border-radius: 10px;
+    animation: scaleShow 0.5s ease-out;
+  }
+
+  #path {
+    left: 25%;
+    right: 25%;
+    width: auto;
+    height: 5%;
+    box-sizing: content-box;
+    padding: 0 10px;
+    border-radius: 0 0 10px 10px;
+    animation: topShow 0.5s;
+  }
+
+  .module {
+    width: 25%;
+    height: 100%;
+    max-width: 300px;
+    animation: leftShow 1s;
+  }
+
+  .attr {
+    right: 0;
+    top: 0;
+    width: 25%;
+    max-width: 300px;
+    animation: rightShow 1s;
+  }
+}
+.path {
+  justify-content: flex-end;
+  display: flex;
+  position: relative;
+  align-items: center;
+  padding: 0 20px;
+  cursor: pointer;
+}
+.path::before {
+  position: absolute;
+  top: 0%;
+  left: 100%;
+  width: 0;
+  height: 100%;
+  box-sizing: border-box;
+  border-bottom: 2px solid #fff;
+  transition: 0.2s all linear;
+  content: "";
+}
+.path:hover, .path.select {
+  background-color: rgba(238, 238, 238, 0.6);
+}
+.path:hover::before, .path.select::before {
+  width: 100%;
+  left: 0;
+}
+.path:hover ~ .path::before {
+  left: 0;
+}
+.path:active {
+  background-color: rgba(238, 238, 238, 0.9);
+}
+
+#attr, #module, #tree {
+  background-color: rgba(2, 101, 167, 0.2);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 0 0 5px inset rgba(2, 101, 167, 0.2);
+}
+#attr div, #module div, #tree div {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+  padding: 5px;
+  background-color: rgba(238, 238, 238, 0.1);
+}
+#attr div input, #attr div textarea, #module div input, #module div textarea, #tree div input, #tree div textarea {
+  flex: 1;
+  padding: 5px;
+}
+#attr li, #module li, #tree li {
+  cursor: pointer;
+  padding: 5px;
+  margin-left: 20px;
+}
+#attr li:hover, #module li:hover, #tree li:hover {
+  background-color: rgba(238, 238, 238, 0.1);
+}
+
+#attr:empty::after {
+  content: "未选择元素";
+}
+
+#module {
+  max-height: 40%;
+}
+#module:empty::after {
+  content: "模块不存在";
+}
+
+#tree:empty::after {
+  content: "节点不存在";
+}
